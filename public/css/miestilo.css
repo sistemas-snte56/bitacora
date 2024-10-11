@@ -1,0 +1,39 @@
+.miestilo{
+    text-align: center; /* Centrar el texto */
+    background-color: magenta; /* Color de fondo magenta */
+    color: white; /* Color de fuente blanco */
+    border: 2px solid green; /* Borde de 2px de ancho y color verde */
+    width: 100%; /* Ancho del elemento al 100% */
+    margin: 2em 0; /* Margen superior e inferior de 2em, margen izquierdo y derecho de 0 */
+    padding: 2em; /* Padding de 2em */
+}
+
+.contenedor {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 900px; /* Puedes ajustar este valor según tus necesidades */
+    background-color: #fff; /* Color de fondo gris */
+    color: #fff; /* Color del texto blanco */
+    /* text-align: center; Texto centrado */
+    padding: 20px; /* Espacio interior */
+}
+
+.contenedor .card-header {
+    /* Estilos para el card-header dentro de contenedor */
+    background-color: #ee7a00; /* Color de fondo */
+    padding: 15px; /* Espaciado interno */
+    border-bottom: 1px solid #dee2e6; /* Borde inferior */
+    font-size: 1.25rem; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+}
+
+.contenedor .card-header .h4 {
+    color: #fff;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) { /* Para tabletas y móviles */
+    .contenedor {
+        width: 100%; /* Ancho al 100% en pantallas pequeñas */
+    }
+}
