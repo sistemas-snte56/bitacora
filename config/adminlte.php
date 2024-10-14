@@ -260,7 +260,7 @@ return [
 
     'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
-    'right_sidebar_theme' => 'dark',
+    'right_sidebar_theme' => 'light',
     'right_sidebar_slide' => true,
     'right_sidebar_push' => true,
     'right_sidebar_scrollbar_theme' => 'os-theme-light',
@@ -337,12 +337,12 @@ return [
         ],
 
         
-        [
-            'text' => 'Tema',
-            'route' => 'tema.index',
-            'icon' => 'fas fa-fw fa-user',
-            'topnav' => true,            
-        ],
+        // [
+        //     'text' => 'Tema',
+        //     'route' => 'tema.index',
+        //     'icon' => 'fas fa-fw fa-user',
+        //     'topnav' => true,            
+        // ],
 
         [
             'text' => 'Mi Bitácora',
@@ -529,10 +529,10 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
-        ],
+        ],        
         'Pace' => [
             'active' => false,
             'files' => [
@@ -557,11 +557,8 @@ return [
         
         // Plugin de Calendario
         /**
-         * 
          * php artisan adminlte:plugins install --plugin=tempusdominusBootstrap4
-         * 
          */
-
         'TempusDominusBs4' => [
             'active' => true,
             'files' => [
@@ -585,22 +582,10 @@ return [
         ], 
 
 
-
-
-
-
-
-
-
-
-
          // Para exportar botones 
         /**
-         * 
          * php artisan adminlte:plugins install --plugin=datatablesPlugins
-         * 
          */
-
         'DatatablesPlugins' => [
             'active' => true,
             'files' => [
@@ -648,7 +633,20 @@ return [
         ],
 
 
-
+        // Para integrar los botones InputSwitch
+        /**
+         * php artisan adminlte:plugins install --plugin=bootstrapSwitch
+         */
+        'BootstrapSwitch' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bootstrap-switch/js/bootstrap-switch.min.js',
+                ],
+            ],
+        ],        
 
 
 

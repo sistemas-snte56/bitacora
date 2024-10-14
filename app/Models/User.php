@@ -64,6 +64,11 @@ class User extends Authenticatable
     {
         return url($this->profile_photo_url);
     }
+
+    public function adminlte_desc()
+    {
+        return "Administrador";
+    }
     
     public function adminlte_profile_url()
     {

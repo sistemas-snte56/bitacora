@@ -17,7 +17,6 @@ class BitacoraController extends Controller
     {
         // Obtén solo las bitácoras del usuario autenticado
         $bitacoras = Bitacora::where('id_user', Auth::id())->get(); // Filtra por el ID del usuario autenticado
-        
         return view('bitacora.index', compact('bitacoras'));
     }
 
@@ -92,7 +91,7 @@ class BitacoraController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return "Editar";
     }
 
     /**
@@ -108,6 +107,8 @@ class BitacoraController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $bitacora = Bitacora::find($id);
+        $bitacora->delete();
+        return back()->with('success_delete', 'Su registro ha sido eliminado.');
     }
 }

@@ -28,15 +28,15 @@
                         'DEPENDENCIA',
                         'MOTIVO',
                         'OBSERVACIÓN',
-                        'CONCLUIDO',
+                        'ESTADO',
                         ['label' => 'ACCIONES', 'no-export' => true, 'width' => 12],
                     ];
                     $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                     <i class="fa fa-lg fa-fw fa-pen"></i>
                                 </button>';
-                    $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+                    $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Eliminar">
                                     <i class="fa fa-lg fa-fw fa-trash"></i>
-                                </button>';
+                                </button>';                                
                     $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                                     <i class="fa fa-lg fa-fw fa-eye"></i>
                                 </button>';
@@ -60,25 +60,42 @@
                     ];
                 @endphp
                 {{-- Minimal example / fill data using the component slot --}}
-                <x-adminlte-datatable id="table1" :heads="$heads"  :config="$config"  striped hoverable bordered compressed>
+                <x-adminlte-datatable id="table1" :heads="$heads"  :config="$config"  striped hoverable bordered compressed with-buttons>
                     @foreach($bitacoras as $bitacora )
+                        @php
+                            $config = [
+                                'state' => false,
+                                'animate' => true,
+                                'offColor' => 'red',
+                                'onColor' => 'green'
+                            ];
+
+                            // $btnConcluido = '<x-adminlte-input-switch name="iswText" :config="$config" data-on-text="SI" data-off-text="NO" igroup-size="sm"    
+                            // data-on-color="success" checked/>';
+
+                        @endphp         
+
                         <tr>
                             <td>{{$bitacora->fecha_salida }}</td>
                             <td>{{$bitacora->hora}}</td>
                             <td>{{$bitacora->dependencia->dependencia}}</td>
                             <td>{{$bitacora->motivo}}</td>
                             <td>{{$bitacora->observacion}}</td>
-                            <td>{{$bitacora->concluido}}</td>
                             <td>
-                                <a class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details" href="">
-                                    <i class="fa fa-lg fa-fw fa-eye"></i>
-                                </a>
-                                <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" href="">
+                                <x-adminlte-input-switch name="iswText" data-on-text="SI" state="0" data-off-text="NO" igroup-size="sm"    
+                                data-on-color="success" />
+                            </td>
+                            <td>
+                                <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit"  href="{{route('bitacora.edit', $bitacora)}} ">
                                     <i class="fa fa-lg fa-fw fa-pen"></i>
                                 </a>
-                                <a class="btn btn-xs btn-default text-danger mx-1 shadow" title="Borrar" href="">
-                                    <i class="fa fa-lg fa-fw fa-trash"></i>
-                                </a>
+
+                                <form action="{{route('bitacora.destroy', $bitacora)}}" method="post" class="formEliminar" style="display: inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    {!! $btnDelete !!}
+                                </form>
+                                
                             </td>
                         </tr>
                     @endforeach
@@ -96,17 +113,55 @@
 @stop
 
 @section('js')
-    @if(session('success_salida'))
     <script>
-        $(document).ready(function(){
-            let mensaje = "{{ session ('success_salida') }}"
-            Swal.fire({
-                icon: 'success',
-                title: mensaje,
-                text: 'La salida que registraste se guardo satisfactoriamente.',
-                showConfirmButton: true,
-            });
+        $(document).ready(function() {
+            $('.formEliminar').submit(function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: "Estas seguro?",
+                    text: "¡No podrás revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, borrarlo!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (result.isConfirmed) {
+                            this.submit();
+                        }
+                    }
+                });
+
+            })
         });
     </script>
+
+    @if(session('success_salida'))
+        <script>
+            $(document).ready(function(){
+                let mensaje = "{{ session ('success_salida') }}"
+                Swal.fire({
+                    icon: 'success',
+                    title: mensaje,
+                    text: 'La salida que registraste se guardo satisfactoriamente.',
+                    showConfirmButton: true,
+                });
+            });
+        </script>
+    @endif 
+    @if(session('success_delete'))
+        <script>
+            $(document).ready(function(){
+                let mensaje = "{{ session ('success_delete') }}"
+                Swal.fire({
+                    icon: 'success',
+                    title: mensaje,
+                    text: 'La salida que registraste se borro satisfactoriamente.',
+                    showConfirmButton: true,
+                });
+            });
+        </script>
     @endif 
 @stop
