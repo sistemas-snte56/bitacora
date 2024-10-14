@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('fecha_salida')->nullable(); // Columna para fecha
             $table->time('hora')->nullable(); // Columna para hora
             $table->date('fecha_llegada')->nullable(); // Columna para fecha
-            $table->boolean('concluido')->default(false); // Columna para confirmar si está concluido
+            $table->boolean('status')->default(false); // Columna para confirmar si está concluido
             $table->text('observacion', 1000)->nullable(); // Agrega un campo 'observaciones'
 
             $table->unsignedBigInteger('id_user');

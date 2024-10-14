@@ -35,5 +35,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    route::get('/bitacora/status',[BitacoraController::class, 'UpdateStatusSalida'])->name('bitacora.status');
     route::resource('/bitacora',BitacoraController::class)->names('bitacora');
 });

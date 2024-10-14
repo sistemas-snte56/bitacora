@@ -7,6 +7,7 @@ use App\Models\Admin\Bitacora;
 use Illuminate\Support\Carbon;
 use App\Models\Admin\Dependencia;
 use Illuminate\Support\Facades\Auth;
+use Termwind\Components\Raw;
 
 class BitacoraController extends Controller
 {
@@ -71,7 +72,7 @@ class BitacoraController extends Controller
         $bitacora->motivo = $request->input('motivo');
         $bitacora->fecha_salida = Carbon::createFromFormat('d-m-Y', $request->input('fecha_salida'));
         $bitacora->hora = Carbon::createFromFormat('H:i:s', $request->input('hora_salida'));
-        $bitacora->concluido = false; // Marca como concluido
+        $bitacora->status = false; // Marca como status
         $bitacora->observacion = $request->input('observacion');
         $bitacora->save();
 
@@ -110,5 +111,39 @@ class BitacoraController extends Controller
         $bitacora = Bitacora::find($id);
         $bitacora->delete();
         return back()->with('success_delete', 'Su registro ha sido eliminado.');
+    }
+
+    public function UpdateStatusSalida(Request $request)
+    {
+
+        // return response()->json(['var'=>''.$request.'']);
+
+
+        
+
+        // $statusUpdate = Bitacora::findOrFail($request->id)->update(['status'=>$request->estatus]);
+
+        // if($request->estatus == 0)
+        // {
+        //     $newStatus = '<h5><span class="badge badge-danger">Sin concluir</span></h5>';
+        // } else {
+        //     $newStatus = '<h5><span class="badge badge-success">Concluido</span></h5>';
+        // }
+
+        // return response()->json(['var'=>''.$newStatus.'']);
+        
+        try {
+            $statusUpdate = Bitacora::findOrFail($request->id)->update(['status' => $request->estatus]);
+    
+            if ($request->estatus == 0) {
+                $newStatus = '<h5><span class="badge badge-danger">Sin concluir</span></h5>';
+            } else {
+                $newStatus = '<h5><span class="badge badge-success">Concluido</span></h5>';
+            }
+    
+            return response()->json(['var' => $newStatus]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }        
     }
 }

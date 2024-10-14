@@ -17,7 +17,7 @@ class Bitacora extends Model
         'fecha_salida',
         'hora',
         'fecha_llegada',
-        'concluido',
+        'status',
         'observacion',
     ];
 

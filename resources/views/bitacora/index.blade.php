@@ -41,6 +41,7 @@
                                     <i class="fa fa-lg fa-fw fa-eye"></i>
                                 </button>';
 
+
                     $config = [
                         'order' => [[1, 'asc']],
                         'columns' => [
@@ -70,6 +71,8 @@
                                 'onColor' => 'green'
                             ];
 
+                            $btnStatus = '<input type="checkbox" checked data-toggle="toggle" data-onstyle="outline-primary" data-offstyle="outline-secondary">';
+
                             // $btnConcluido = '<x-adminlte-input-switch name="iswText" :config="$config" data-on-text="SI" data-off-text="NO" igroup-size="sm"    
                             // data-on-color="success" checked/>';
 
@@ -79,13 +82,37 @@
                             <td>{{$bitacora->fecha_salida }}</td>
                             <td>{{$bitacora->hora}}</td>
                             <td>{{$bitacora->dependencia->dependencia}}</td>
-                            <td>{{$bitacora->motivo}}</td>
-                            <td>{{$bitacora->observacion}}</td>
                             <td>
-                                <x-adminlte-input-switch name="iswText" data-on-text="SI" state="0" data-off-text="NO" igroup-size="sm"    
-                                data-on-color="success" />
+                                <p id="status_motivo">
+                                    {{$bitacora->motivo}}
+                                </p>
+                            </td>
+                            <td>{{$bitacora->observacion}}</td>
+                            <td id="resp{{$bitacora->id}}">
+                                @if ($bitacora->status == 1)
+                                    <h5><span class="badge badge-success">Concluido</span></h5>
+                                @else
+                                    <h5><span class="badge badge-danger">Sin concluir</span></h5>
+                                @endif
                             </td>
                             <td>
+                                
+                                <label class="switch">
+                                    <input type="checkbox" name="status" id="status" data-id="{{$bitacora->id}}" class="mi_checkbox"
+                                        data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active"
+                                        data-off="InActive" {{$bitacora->status ? 'checked' : ''}} >
+                                        <span class="slider round"></span>
+                                </label>
+
+
+
+                                <br>
+
+                                <hr>
+                                    {!! $btnStatus !!}
+                                <hr>
+
+
                                 <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit"  href="{{route('bitacora.edit', $bitacora)}} ">
                                     <i class="fa fa-lg fa-fw fa-pen"></i>
                                 </a>
@@ -109,7 +136,7 @@
 
 @section('css')
     {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    <link rel="stylesheet" href="/css/miestilo.css">
 @stop
 
 @section('js')
@@ -164,4 +191,30 @@
             });
         </script>
     @endif 
+
+    <script>
+        $('.mi_checkbox').change(function(){
+            var estatus = $(this).prop('checked') == true ? 1 : 0;
+            var id = $(this).data('id');
+            console.log(estatus);
+
+            $.ajax({
+                type:"GET",
+                dataType: "json",
+                url: '{{ route('bitacora.status') }}',
+                data: {'estatus':estatus,'id':id},
+                success: function(data)
+                {
+                    $('#resp'+id).html(data.var);
+                    console.log(data.var)
+                }
+            });
+        })
+
+        
+    </script>
 @stop
+
+
+
+
