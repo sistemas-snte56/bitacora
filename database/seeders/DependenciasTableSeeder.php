@@ -15,7 +15,7 @@ class DependenciasTableSeeder extends Seeder
     {
         $dependencias = [
             ['dependencia' => 'Preescolar', 'created_at' => now(), 'updated_at' => now()],
-            ['dependencia' => 'Primaria', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'DGEPE', 'created_at' => now(), 'updated_at' => now()],
             ['dependencia' => 'Secundarias', 'created_at' => now(), 'updated_at' => now()],
             ['dependencia' => 'Telesecundaria', 'created_at' => now(), 'updated_at' => now()],
             ['dependencia' => 'Bachillerato', 'created_at' => now(), 'updated_at' => now()],
@@ -28,9 +28,16 @@ class DependenciasTableSeeder extends Seeder
             ['dependencia' => 'Nivel Superior', 'created_at' => now(), 'updated_at' => now()],
             ['dependencia' => 'Jubilados', 'created_at' => now(), 'updated_at' => now()],
             ['dependencia' => 'SUM', 'created_at' => now(), 'updated_at' => now()],
-            ['dependencia' => 'Xanati', 'created_at' => now(), 'updated_at' => now()],
-            ['dependencia' => 'IPE', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'XANATI', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'COMISIÓN SINDICAL', 'created_at' => now(), 'updated_at' => now()],
             ['dependencia' => 'Otros', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'ACUERDOS', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'GESTORÍA', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'ASUNTO PERSONAL PERSONAL', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'SSTEEV', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'IPE', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'ISSSTE', 'created_at' => now(), 'updated_at' => now()],
+            ['dependencia' => 'CDMX', 'created_at' => now(), 'updated_at' => now()],
         ];
         DB::table('dependencia')->insert($dependencias);
     }

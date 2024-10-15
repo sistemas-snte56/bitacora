@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('fecha_llegada')->nullable(); // Columna para fecha
             $table->boolean('status')->default(false); // Columna para confirmar si está concluido
             $table->text('observacion', 1000)->nullable(); // Agrega un campo 'observaciones'
+            $table->softDeletes(); // Agrega la columna deleted_at
 
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
