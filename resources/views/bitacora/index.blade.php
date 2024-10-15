@@ -28,7 +28,6 @@
                         'DEPENDENCIA',
                         'MOTIVO',
                         'OBSERVACIÓN',
-                        'ESTADO',
                         'STATUS',
                         ['label' => 'ACCIONES', 'no-export' => true, 'width' => 12],
                     ];
@@ -53,7 +52,6 @@
                             ['orderable' => false], 
                             ['orderable' => false],
                             ['orderable' => false],
-                            ['orderable' => false],
                         ],
                         'language' => [
                             'url' => 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json',
@@ -69,7 +67,9 @@
                             <td>{{$bitacora->fecha_salida }}</td>
                             <td>{{$bitacora->hora}}</td>
                             <td>{{$bitacora->dependencia->dependencia}}</td>
-                            <td>
+                            <td id="motivo{{$bitacora->id}}">
+                                
+                                
                                 @if ($bitacora->status == 1)
                                     <p id="status_motivo_{{$bitacora->id}}">
                                         <del>{{$bitacora->motivo}}</del>
@@ -79,6 +79,8 @@
                                         {{$bitacora->motivo}}
                                     </p>
                                 @endif
+
+
                             </td>
                             <td>{{$bitacora->observacion}}</td>
                             <td id="resp{{$bitacora->id}}">
@@ -89,21 +91,14 @@
                                 @endif
                             </td>
                             <td>
-                                <label class="switch">
-                                    <input type="checkbox" name="status" id="status{{$bitacora->id}}" data-id="{{$bitacora->id}}" class="mi_checkbox"
-                                        data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active"
-                                        data-off="InActive" {{$bitacora->status ? 'checked' : ''}} >
-                                    <span class="slider round"></span>
-                                </label>                                
-                            </td>
-                            <td>
-                                <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit"  href="{{route('bitacora.edit', $bitacora)}} ">
-                                    <i class="fa fa-lg fa-fw fa-pen"></i>
-                                </a>
+                                <input type="button" id="status{{$bitacora->id}}" data-id="{{$bitacora->id}}" class="mi_boton btn btn-info btn-sm"
+                                    value="{{$bitacora->status ? 'Finalizado' : 'Terminar'}}" 
+                                    data-status="{{$bitacora->status ? 1 : 0}}">  
+                                    &nbsp;
                                 <form action="{{route('bitacora.destroy', $bitacora)}}" method="post" class="formEliminar" style="display: inline">
                                     @csrf
                                     @method('DELETE')
-                                    {!! $btnDelete !!}
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                 </form>
                             </td>
                         </tr>
@@ -175,28 +170,35 @@
     @endif 
 
     <script>
-        $('.mi_checkbox').change(function(){
-            var estatus = $(this).prop('checked') == true ? 1 : 0;
-            var id = $(this).data('id');
-            console.log(estatus);
-
+        $('.mi_boton').click(function() {
+            var button = $(this);
+            var estatus = button.data('status') == 1 ? 0 : 1; // Cambia el estatus
+            var id = button.data('id');
+    
             $.ajax({
-                type:"GET",
+                type: "GET",
                 dataType: "json",
                 url: '{{ route('bitacora.status') }}',
-                data: {'estatus':estatus,'id':id},
-                success: function(data)
-                {
-                    $('#resp'+id).html(data.var);
-                    // $('#status_motivo_' + id).html('<del>' + $('#status_motivo_' + id).text() + '</del>'); // Agrega el <del> al motivo antiguo
+                data: {'estatus': estatus, 'id': id},
+                success: function(data) {
+                    button.data('status', estatus); // Actualiza el estado en el botón
+                    button.val(estatus ? 'Finalizado' : 'Terminar'); // Cambia el texto del botón
+    
+                    var motivoCell = $('#motivo' + id);
+                    if (estatus === 0) { // Si el nuevo estado es InActive
+                        // Si es Active, puedes decidir si eliminar el <del> o no
+                        motivoCell.html(motivoCell.text().replace(/<del>(.*?)<\/del>/, '$1')); // Remueve el efecto <del> si está presente
 
-                    // // Muestra el nuevo motivo en la vista
-                    // $('#status_motivo_' + id).append('<p>' + data.motivo + '</p>'); // Muestra el nuevo motivo
-                    // console.log(data.var);
+                    } else {
+                        motivoCell.html('<del>' + motivoCell.text() + '</del>'); // Aplica el efecto <del>
+                    }
+                    $('#resp' + id).html(data.var);
                 }
             });
-        })
+        });
     </script>
+    
+    
 @stop
 
 
