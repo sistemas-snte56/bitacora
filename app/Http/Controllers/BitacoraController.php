@@ -131,7 +131,6 @@ class BitacoraController extends Controller
         // }
 
         // return response()->json(['var'=>''.$newStatus.'']);
-        
         try {
             $statusUpdate = Bitacora::findOrFail($request->id)->update(['status' => $request->estatus]);
     

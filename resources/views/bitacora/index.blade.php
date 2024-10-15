@@ -29,6 +29,7 @@
                         'MOTIVO',
                         'OBSERVACIÓN',
                         'ESTADO',
+                        'STATUS',
                         ['label' => 'ACCIONES', 'no-export' => true, 'width' => 12],
                     ];
                     $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
@@ -43,13 +44,14 @@
 
 
                     $config = [
-                        'order' => [[1, 'asc']],
+                        'order' => [[0, 'asc']],
                         'columns' => [
+                            ['orderable' => true], 
                             ['orderable' => false], 
-                            null, 
-                            null, 
-                            null, 
                             ['orderable' => false], 
+                            ['orderable' => false], 
+                            ['orderable' => false], 
+                            ['orderable' => false],
                             ['orderable' => false],
                             ['orderable' => false],
                         ],
@@ -63,29 +65,20 @@
                 {{-- Minimal example / fill data using the component slot --}}
                 <x-adminlte-datatable id="table1" :heads="$heads"  :config="$config"  striped hoverable bordered compressed with-buttons>
                     @foreach($bitacoras as $bitacora )
-                        @php
-                            $config = [
-                                'state' => false,
-                                'animate' => true,
-                                'offColor' => 'red',
-                                'onColor' => 'green'
-                            ];
-
-                            $btnStatus = '<input type="checkbox" checked data-toggle="toggle" data-onstyle="outline-primary" data-offstyle="outline-secondary">';
-
-                            // $btnConcluido = '<x-adminlte-input-switch name="iswText" :config="$config" data-on-text="SI" data-off-text="NO" igroup-size="sm"    
-                            // data-on-color="success" checked/>';
-
-                        @endphp         
-
                         <tr>
                             <td>{{$bitacora->fecha_salida }}</td>
                             <td>{{$bitacora->hora}}</td>
                             <td>{{$bitacora->dependencia->dependencia}}</td>
                             <td>
-                                <p id="status_motivo">
-                                    {{$bitacora->motivo}}
-                                </p>
+                                @if ($bitacora->status == 1)
+                                    <p id="status_motivo_{{$bitacora->id}}">
+                                        <del>{{$bitacora->motivo}}</del>
+                                    </p>
+                                @else
+                                    <p id="status_motivo_{{$bitacora->id}}">
+                                        {{$bitacora->motivo}}
+                                    </p>
+                                @endif
                             </td>
                             <td>{{$bitacora->observacion}}</td>
                             <td id="resp{{$bitacora->id}}">
@@ -96,33 +89,22 @@
                                 @endif
                             </td>
                             <td>
-                                
                                 <label class="switch">
-                                    <input type="checkbox" name="status" id="status" data-id="{{$bitacora->id}}" class="mi_checkbox"
+                                    <input type="checkbox" name="status" id="status{{$bitacora->id}}" data-id="{{$bitacora->id}}" class="mi_checkbox"
                                         data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active"
                                         data-off="InActive" {{$bitacora->status ? 'checked' : ''}} >
-                                        <span class="slider round"></span>
-                                </label>
-
-
-
-                                <br>
-
-                                <hr>
-                                    {!! $btnStatus !!}
-                                <hr>
-
-
+                                    <span class="slider round"></span>
+                                </label>                                
+                            </td>
+                            <td>
                                 <a class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit"  href="{{route('bitacora.edit', $bitacora)}} ">
                                     <i class="fa fa-lg fa-fw fa-pen"></i>
                                 </a>
-
                                 <form action="{{route('bitacora.destroy', $bitacora)}}" method="post" class="formEliminar" style="display: inline">
                                     @csrf
                                     @method('DELETE')
                                     {!! $btnDelete !!}
                                 </form>
-                                
                             </td>
                         </tr>
                     @endforeach
@@ -206,12 +188,14 @@
                 success: function(data)
                 {
                     $('#resp'+id).html(data.var);
-                    console.log(data.var)
+                    // $('#status_motivo_' + id).html('<del>' + $('#status_motivo_' + id).text() + '</del>'); // Agrega el <del> al motivo antiguo
+
+                    // // Muestra el nuevo motivo en la vista
+                    // $('#status_motivo_' + id).append('<p>' + data.motivo + '</p>'); // Muestra el nuevo motivo
+                    // console.log(data.var);
                 }
             });
         })
-
-        
     </script>
 @stop
 

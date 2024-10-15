@@ -21,43 +21,15 @@
                 {!! Form::open(['route'=>['bitacora.store'], 'method'=>'POST']) !!}
                     @csrf
                     <div class="row">
-                        <x-adminlte-select name="select_dependencia" label-class="text-orange" label="¿A QUE DEPENDENCIA TE DIRIGES?" fgroup-class="col-md-12">
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-gradient-orange">
-                                    <i class="fas fa-city text-white"></i>
-                                </div>
-                            </x-slot>                            
-                            <x-adminlte-options :options="$dependencias" :selected="old('select_dependencia')" empty-option="SELECCIONA" />
+                        <x-adminlte-select name="select_dependencia" fgroup-class="col-md-12">
+                            <option value="" disabled selected>¿A qué dependencia te diriges?</option>                      
+                            <x-adminlte-options :options="$dependencias" :selected="old('select_dependencia')"/>
                         </x-adminlte-select>     
-                
+
                         <!-- Campo adicional, inicialmente oculto -->
-                        <x-adminlte-input name="dependencia_especifica" label-class="text-orange" id="input_otro" label="POR FAVOR ESPECIFICAR OTRA DEPENDENCIA" placeholder="Especifica otra dependencia" type="text" fgroup-class="col-md-12" style="display:none;" value="{{old('dependencia_especifica')}}">
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-gradient-orange">
-                                    <i class="fas fa-building text-white"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input> 
+                        <x-adminlte-input name="dependencia_especifica" id="input_otro" label-class="text-orange" label=""  placeholder="Por favor especificar otra dependencia" type="text" fgroup-class="col-md-12" hidden :value="old('dependencia_especifica')" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-                        <x-adminlte-input name="motivo" label-class="text-orange" label="¿CÚAL ES EL MOTIVO DE TU SALIDA?" placeholder="Motivo de tu salida"  type="text" fgroup-class="col-md-12" value="{{old('motivo')}}">
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-gradient-orange">
-                                    <i class="fas fa-exclamation-circle text-white"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input>                            
+                        <x-adminlte-input name="motivo"  placeholder="¿Cúal es el motivo de tu salida?" label-class="text-orange" label="" type="text" fgroup-class="col-md-12" :value="old('motivo')" />
 
                         @php
                             $config = [
@@ -68,43 +40,22 @@
                             ];
                         @endphp
 
-                        <x-adminlte-input-date name="fecha_salida" :config="$config" placeholder="Ingresa fecha" label-class="text-orange" label="FECHA DE SALIDA" fgroup-class="col-md-12" :value="old('fecha_salida')">
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-gradient-orange">
-                                    <i class="fas fa-calendar text-white"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input-date>                            
-
+                        <x-adminlte-input-date name="fecha_salida" :config="$config" placeholder="Selecciona la fecha de salida" label-class="text-orange" label="" fgroup-class="col-md-12" :value="old('fecha_salida')" />
 
                         {{-- Placeholder, time only and prepend icon --}}
                         @php
                             $config = ['format' => 'HH:mm:ss'];
                         @endphp
-                        <x-adminlte-input-date name="hora_salida" :config="$config" placeholder="En que horario..." label-class="text-orange" label="HORA DE SALIDA" fgroup-class="col-md-12" :value="old('hora_salida')" >
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-gradient-orange">
-                                    <i class="fas fa-clock text-white"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input-date>
+                        <x-adminlte-input-date name="hora_salida" :config="$config" placeholder="Selecciona la hora de salida" label-class="text-orange" label="" fgroup-class="col-md-12" :value="old('hora_salida')" />
 
-                        <x-adminlte-textarea name="observacion" label-class="text-orange" label="OBESRVACIONES" type="textarea" fgroup-class="col-md-12"  placeholder="Insert observación..."/>
-
-                        
-
-
-
-
-
-
+                        <x-adminlte-textarea name="observacion" label-class="text-orange" label="" type="textarea" fgroup-class="col-md-12"  placeholder="¿Gustas ingresar alguna observación?"/>
 
                         <x-adminlte-button class="button" label-class="text-orange" label="Guardar" theme="primary" icon="fas fa-save" type="submit" />
 
-                    </div>                    
+                    </div>        
 
                 {!! Form::close() !!}
-                
+
             </div>
         </div>
     </div>
@@ -114,19 +65,20 @@
 
 @section('css')
     {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    <link rel="stylesheet" href="/css/miestilo.css">
 @stop
 
 @section('js')
     <script>
         // Script para mostrar el input cuando se seleccione "Otros"
-        document.getElementById('select_dependencia').addEventListener('change', function () {
+        document.getElementsByName('select_dependencia')[0].addEventListener('change', function () {
             var inputOtro = document.getElementById('input_otro');
             if (this.value === "17") {  // O el ID de "Otros" si está basado en ID
-                inputOtro.style.display = 'block'; // Mostrar el campo
+                inputOtro.removeAttribute('hidden'); // Mostrar el campo
             } else {
-                inputOtro.style.display = 'none'; // Ocultar el campo
+                inputOtro.setAttribute('hidden', true); // Ocultar el campo
             }
         });
+
     </script>
 @stop

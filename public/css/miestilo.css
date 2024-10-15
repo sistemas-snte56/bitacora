@@ -37,3 +37,8 @@
         width: 100%; /* Ancho al 100% en pantallas pequeñas */
     }
 }
+
+x-adminlte-input::placeholder {
+    color: orange; /* Cambia el color del placeholder */
+    opacity: 1; /* Asegúrate de que sea visible */
+}
