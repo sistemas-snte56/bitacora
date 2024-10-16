@@ -351,6 +351,27 @@ return [
             'topnav' => true,            
         ],
 
+        [
+            'text' => 'Administrador',
+            // 'route' => 'admin.bitacora.index',
+            'icon' => 'fa fa-cog',
+            'topnav' => true,    
+            'submenu' => [
+                [
+                    'text' => 'Bitacora',
+                    'route' => 'admin.bitacora.index',
+                    'icon' => 'fa fa-cog',
+                    'classes' => 'text-center',                    
+                ],
+                [
+                    'text' => 'Usuarios',
+                    'url' => '#',
+                    'icon' => 'fa fa-cog',                    
+                    'classes' => 'text-center',                    
+                ],
+            ], 
+        ],
+
 
         // [
         //     'type' => 'sidebar-menu-search',

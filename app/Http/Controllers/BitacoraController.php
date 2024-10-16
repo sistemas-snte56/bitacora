@@ -132,7 +132,7 @@ class BitacoraController extends Controller
 
         // return response()->json(['var'=>''.$newStatus.'']);
         try {
-            $statusUpdate = Bitacora::findOrFail($request->id)->update(['status' => $request->estatus]);
+            $statusUpdate = Bitacora::findOrFail($request->id)->update(['status' => $request->estatus,'updated_at' => now()]);
     
             if ($request->estatus == 0) {
                 $newStatus = '<h5><span class="badge badge-danger">Sin concluir</span></h5>';
