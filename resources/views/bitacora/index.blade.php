@@ -15,9 +15,9 @@
         </div>
         <div class="card-body">
             <div class="card-title mb-4">
-                <a href="{{ route('bitacora.create') }}" class="btn bg-primary float-right">
-                    <i class="fa fa-sm fa-fw fa-pen"></i> Registrar salida
-                </a>                
+                    <a href="{{ route('bitacora.create') }}" class="btn bg-primary float-right">
+                        <i class="fa fa-sm fa-fw fa-pen"></i> Registrar salida
+                    </a>                
             </div>
             <div class="card-text">
                 {{-- Setup data for datatables --}}
@@ -91,15 +91,19 @@
                                 @endif
                             </td>
                             <td>
-                                <input type="button" id="status{{$bitacora->id}}" data-id="{{$bitacora->id}}" class="mi_boton btn btn-info btn-sm"
-                                    value="{{$bitacora->status ? 'Finalizado' : 'Terminar'}}" 
-                                    data-status="{{$bitacora->status ? 1 : 0}}">  
+                                @can('admin.bitacora.status')
+                                    <input type="button" id="status{{$bitacora->id}}" data-id="{{$bitacora->id}}" class="mi_boton btn btn-info btn-sm"
+                                        value="{{$bitacora->status ? 'Finalizado' : 'Terminar'}}" 
+                                        data-status="{{$bitacora->status ? 1 : 0}}">  
+                                @endcan
                                     &nbsp;
-                                <form action="{{route('bitacora.destroy', $bitacora)}}" method="post" class="formEliminar" style="display: inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+                                @can('admin.bitacora.destroy')
+                                    <form action="{{route('bitacora.destroy', $bitacora)}}" method="post" class="formEliminar" style="display: inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
+                                @endcan    
                             </td>
                         </tr>
                     @endforeach
@@ -178,7 +182,8 @@
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: '{{ route('bitacora.status') }}',
+                // url: '{{ route('bitacora.status') }}',
+                url: "{{ route('bitacora.status') }}", // Genera la URL aquí
                 data: {'estatus': estatus, 'id': id},
                 success: function(data) {
                     button.data('status', estatus); // Actualiza el estado en el botón

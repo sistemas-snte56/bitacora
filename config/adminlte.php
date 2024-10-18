@@ -347,31 +347,58 @@ return [
         [
             'text' => 'Mi Bitácora',
             'route' => 'bitacora.index',
+            // 'can' => 'bitacora.index',
             'icon' => 'fas fa-fw fa-user',
             'topnav' => true,            
         ],
 
         [
             'text' => 'Administrador',
-            // 'route' => 'admin.bitacora.index',
             'icon' => 'fa fa-cog',
-            'topnav' => true,    
+            'can' => 'admin.roles.index',
+            'topnav' => true,
             'submenu' => [
                 [
-                    'text' => 'Bitacora',
-                    'route' => 'admin.bitacora.index',
+                    'text' => 'Roles',
+                    'route' => 'admin.roles.index',
                     'icon' => 'fa fa-cog',
-                    'classes' => 'text-center',                    
+                    'classes' => 'text-right',
+                    'can' => 'admin.roles.index',
                 ],
                 [
                     'text' => 'Usuarios',
-                    'url' => '#',
-                    'icon' => 'fa fa-cog',                    
-                    'classes' => 'text-center',                    
-                ],
-            ], 
+                    'route' => 'admin.user.index',
+                    'can' => 'admin.user.index',
+                    'icon' => 'fa fa-user',                    
+                    'classes' => 'text-right',                    
+                ],                
+            ],
         ],
 
+        [
+            'text' => 'Manager',
+            // 'route' => 'admin.bitacora.index',
+            'icon' => 'fa fa-cog',
+            'can' => 'admin.principal.index',
+            'topnav' => true,    
+            'submenu' => [
+                [
+                    'text' => 'Inicio',
+                    'route' => 'admin.principal.index',
+                    'can' => 'admin.principal.index',
+                    'icon' => 'fa fa-home',
+                    'classes' => 'text-right',                    
+                ],
+                [
+                    'text' => 'Bitacora',
+                    'route' => 'admin.bitacora.index',
+                    'can' => 'admin.bitacora.index',
+                    'icon' => 'fa fa-cog',
+                    'classes' => 'text-right',                    
+                ],
+
+            ], 
+        ],
 
         // [
         //     'type' => 'sidebar-menu-search',

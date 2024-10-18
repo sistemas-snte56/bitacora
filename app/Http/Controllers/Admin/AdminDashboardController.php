@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Models\Admin\Bitacora;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class UserController extends Controller
+class AdminDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,7 @@ class UserController extends Controller
     public function index()
     {
         // Obtén solo las bitácoras del usuario autenticado
-        $bitacoras = Bitacora::all(); // Filtra por el ID del usuario autenticado
-        return view('admin.dashboard', compact('bitacoras'));
+        return view('admin.dashboard');
     }
 
     /**

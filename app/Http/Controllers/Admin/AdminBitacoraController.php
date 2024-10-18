@@ -6,8 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Bitacora;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class AdminBitacoraController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:admin.bitacora.index')->only('index');
+        $this->middleware('permission:admin.bitacora.edit')->only('edit','update');
+        $this->middleware('permission:admin.bitacora.create')->only('create','store');
+        $this->middleware('permission:admin.bitacora.destroy')->only('destroy');
+    }
+    
+    
     /**
      * Display a listing of the resource.
      */
@@ -15,7 +25,7 @@ class UserController extends Controller
     {
         // Obtén solo las bitácoras del usuario autenticado
         $bitacoras = Bitacora::all(); // Filtra por el ID del usuario autenticado
-        return view('admin.dashboard', compact('bitacoras'));
+        return view('admin.bitacoras.index', compact('bitacoras'));
     }
 
     /**
