@@ -347,7 +347,7 @@ return [
         [
             'text' => 'Mi Bitácora',
             'route' => 'bitacora.index',
-            // 'can' => 'bitacora.index',
+            'can' => 'bitacora.index',
             'icon' => 'fas fa-fw fa-user',
             'topnav' => true,            
         ],

@@ -14,10 +14,10 @@ class BitacoraController extends Controller
 
     function __construct()
     {
-        // $this->middleware('permission:bitacora.index')->only('index');
-        // $this->middleware('permission:bitacora.edit')->only('edit','update');
-        // $this->middleware('permission:bitacora.create')->only('create','store');
-        // $this->middleware('permission:bitacora.destroy')->only('destroy');
+        $this->middleware('permission:bitacora.index')->only('index');
+        $this->middleware('permission:bitacora.edit')->only('edit','update');
+        $this->middleware('permission:bitacora.create')->only('create','store');
+        $this->middleware('permission:bitacora.destroy')->only('destroy');
     }    
 
 
