@@ -20,6 +20,16 @@ class BitacoraController extends Controller
         $this->middleware('permission:bitacora.destroy')->only('destroy');
     }    
 
+    public function dashboard()
+    {
+        $userID = Auth::id();
+        $userName = Auth::user()->name;
+
+        $countStatus0 = Bitacora::where('id_user',$userID)->where('status',0)->count();
+        $countStatus1 = Bitacora::where('id_user',$userID)->where('status',1)->count();
+        
+        return view('dashboard', compact('countStatus0','countStatus1','userName'));
+    }
 
     /**
      * Display a listing of the resource.

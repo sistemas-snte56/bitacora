@@ -17,9 +17,11 @@ use App\Http\Controllers\DelegacionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::redirect('/','login');
 
 // Route::get('/', [RegistroController::class, 'index'])->name('registro');
 //route::resource('/',RegistroController::class)->names('registro');
@@ -31,10 +33,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
 
+    route::get('/',[BitacoraController::class,'dashboard'])->name('bitacora.dashboard');
     route::get('/bitacora/status',[BitacoraController::class, 'UpdateStatusSalida'])->name('bitacora.status');
     route::resource('/bitacora',BitacoraController::class)->names('bitacora');
 });

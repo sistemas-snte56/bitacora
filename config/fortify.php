@@ -73,7 +73,8 @@ return [
     |
     */
 
-    'home' => '/dashboard',
+    # Ruta hacia donde te manda una vez logeado
+    'home' => '/bitacora',
 
     /*
     |--------------------------------------------------------------------------

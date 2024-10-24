@@ -154,10 +154,10 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => true,
+    'layout_fixed_sidebar' => true, #Logo de la barra izquierda fijo 
+    'layout_fixed_navbar' => true, #Menu superior fijo o no 
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout_dark_mode' => null, #Toda la interfaz en negro
 
     /*
     |--------------------------------------------------------------------------
@@ -202,12 +202,12 @@ return [
     */
 
     'classes_body' => '',
-    'classes_brand' => '',
-    'classes_brand_text' => '',
+    'classes_brand' => 'bg-white', #Estilo al head del menu izq ->bg-withe
+    'classes_brand_text' => 'text-orange font-bold', #Estilo al texto del head ->text-orange
     'classes_content_wrapper' => '',
-    'classes_content_header' => '',
+    'classes_content_header' => '', #Agregando estilo al titulo de la página
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-light-orange elevation-4', #Color del fondo del menu izq sidebar-dark-orange
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -236,7 +236,7 @@ return [
     */
 
     'sidebar_mini' => false,
-    'sidebar_collapse' => true,
+    'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -328,35 +328,124 @@ return [
         // ],
 
         // Sidebar items:
-
+        [
+            'header' => 'PRINCIPAL',
+            'classes' => 'text-orange text-uppercase text-bold',
+        ],
         [
             'text' => 'Inicio',
-            'url' => '/dashboard',
+            'route' => 'bitacora.dashboard',
+            'shift' => 'ml-2',
             'icon' => 'fas fa-fw fa-home',
-            'topnav' => true,            
+            // 'classes' => 'text-white',
+            // 'icon_color' => 'white',
+            // 'topnav' => true,            
         ],
+
+
+
+
+
+
+
+
 
         
         // [
         //     'text' => 'Tema',
         //     'route' => 'tema.index',
         //     'icon' => 'fas fa-fw fa-user',
-        //     'topnav' => true,            
+        // //     'topnav' => true,            
         // ],
+
+
+
+        [
+            'header' => 'BITACORA',
+            'can' => 'bitacora.index',
+            'classes' => 'text-orange text-uppercase text-bold',
+        ],
+        [
+            'text' => 'Mis salidas',
+            'route' => 'bitacora.index',
+            'can' => 'bitacora.index',
+            'icon' => 'fa fa-pen',
+            'classes' => 'text-left',   
+            'shift' => 'ml-2',                  
+        ],                
+        [
+            'text' => 'Registrar salida',
+            'route' => 'bitacora.create',
+            'icon' => 'fa fa-plus',
+            'can' => 'bitacora.create',
+            'classes' => 'text-left',
+            'shift' => 'ml-2', 
+        ],
+
+
+
+    /*
 
         [
             'text' => 'Mi Bitácora',
             'route' => 'bitacora.index',
             'can' => 'bitacora.index',
             'icon' => 'fas fa-fw fa-user',
-            'topnav' => true,            
+            // 'topnav' => true,            
+            'submenu' => [
+                [
+                    'text' => 'Inicio',
+                    'route' => 'bitacora.index',
+                    'can' => 'bitacora.index',
+                    'icon' => 'fa fa-home',
+                    'classes' => 'text-right',                    
+                ],                
+                [
+                    'text' => 'Registrar salida',
+                    'route' => 'bitacora.create',
+                    'icon' => 'fa fa-pen',
+                    'can' => 'bitacora.create',
+                    'classes' => 'text-right',
+                ],
+            ],
         ],
 
+
+    */
+
+        [
+            'header' => 'ADMINISTRADOR',
+            'can' => 'admin.roles.index',
+            'classes' => 'text-orange text-uppercase text-bold',
+        ],
+
+        [
+            'text' => 'Roles',
+            'route' => 'admin.roles.index',
+            'icon' => 'fa fa-cog',
+            'classes' => 'text-left',
+            'can' => 'admin.roles.index',
+            'shift' => 'ml-2',
+            'active' => ['pages', 'content', 'content*', 'regex:@^content/[0-9]+$@'],            
+        ],
+        [
+            'text' => 'Usuarios',
+            'route' => 'admin.user.index',
+            'can' => 'admin.user.index',
+            'icon' => 'fa fa-user',                    
+            'classes' => 'text-left',       
+            'shift' => 'ml-2',             
+        ],          
+
+
+
+
+/*        
         [
             'text' => 'Administrador',
             'icon' => 'fa fa-cog',
             'can' => 'admin.roles.index',
-            'topnav' => true,
+            // 'topnav' => true,
             'submenu' => [
                 [
                     'text' => 'Roles',
@@ -373,32 +462,41 @@ return [
                     'classes' => 'text-right',                    
                 ],                
             ],
+            'shift' => 'ml-2',
+            'classes' => 'text-white',
+            'icon' => 'fas fa-fw fa-home',
+            'icon_color' => 'white',
+
         ],
+*/
+
+
 
         [
-            'text' => 'Manager',
-            // 'route' => 'admin.bitacora.index',
-            'icon' => 'fa fa-cog',
+            'header' => 'Manager',
             'can' => 'admin.principal.index',
-            'topnav' => true,    
-            'submenu' => [
-                [
-                    'text' => 'Inicio',
-                    'route' => 'admin.principal.index',
-                    'can' => 'admin.principal.index',
-                    'icon' => 'fa fa-home',
-                    'classes' => 'text-right',                    
-                ],
-                [
-                    'text' => 'Bitacora',
-                    'route' => 'admin.bitacora.index',
-                    'can' => 'admin.bitacora.index',
-                    'icon' => 'fa fa-cog',
-                    'classes' => 'text-right',                    
-                ],
-
-            ], 
+            'classes' => 'text-orange text-uppercase text-bold',
         ],
+        [
+            'text' => 'Inicio',
+            'route' => 'admin.principal.index',
+            'can' => 'admin.principal.index',
+            'icon' => 'fa fa-home',
+            'classes' => 'text-left',    
+            'shift' => 'ml-2',                
+        ],
+        [
+            'text' => 'Bitacora',
+            'route' => 'admin.bitacora.index',
+            'can' => 'admin.bitacora.index',
+            'icon' => 'fa fa-cog',
+            'classes' => 'text-left',  
+            'shift' => 'ml-2',                  
+        ],
+
+
+
+
 
         // [
         //     'type' => 'sidebar-menu-search',
@@ -531,6 +629,10 @@ return [
                     'asset' => false,
                     'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
+
+
+
+
                 [
                     'type' => 'css',
                     'asset' => false,
@@ -538,11 +640,87 @@ return [
                 ],
 
 
+                # Datatable responsive 
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/responsive/3.0.3/js/responsive.bootstrap4.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/responsive/3.0.3/css/responsive.bootstrap4.css',
+                ],
+
+
+
+
+
+
                 [
                     'type' => 'css',
                     'asset' => false,
                     'location' => 'css/miestilo.css',
                 ],
+
+                #Mi Estilo Datatable
+                // [
+                //     'type' => 'css',
+                //     'asset' => false,
+                //     'location' => 'css/bootstrap.min.css',
+                // ],
+                // [
+                //     'type' => 'css',
+                //     'asset' => false,
+                //     'location' => 'css/dataTables.bootstrap5.css',
+                // ],
+                // [
+                //     'type' => 'css',
+                //     'asset' => false,
+                //     'location' => 'css/responsive.bootstrap5.css',
+                // ],
+
+
+
+                #Mi Estilo Datatable 
+                // [
+                //     'type' => 'js',
+                //     'asset' => false,
+                //     'location' => 'js/bootstrap.bundle.min.js',
+                // ],
+                // [
+                //     'type' => 'js',
+                //     'asset' => false,
+                //     'location' => 'js/dataTables.bootstrap5.js',
+                // ],
+                // [
+                //     'type' => 'js',
+                //     'asset' => false,
+                //     'location' => 'js/dataTables.js',
+                // ],
+                // [
+                //     'type' => 'js',
+                //     'asset' => false,
+                //     'location' => 'js/dataTables.responsive.js',
+                // ],
+                // [
+                //     'type' => 'js',
+                //     'asset' => false,
+                //     'location' => 'js/jquery-3.7.1.js',
+                // ],
+                // [
+                //     'type' => 'js',
+                //     'asset' => false,
+                //     'location' => 'js/responsive.bootstrap5.js',
+                // ],
+
+
+
 
             ],
         ],

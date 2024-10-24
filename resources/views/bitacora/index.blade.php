@@ -57,7 +57,8 @@
                             'url' => 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json',
                         ],
                         'pageLength' => 100, // Configuración por defecto de la cantidad de entradas por página
-                        'lengthMenu' => [50, 100, 200], // Opciones de entradas por página                        
+                        'lengthMenu' => [50, 100, 200], // Opciones de entradas por página       
+                        'responsive' => true,                 
                     ];
                 @endphp
                 {{-- Minimal example / fill data using the component slot --}}
@@ -109,18 +110,30 @@
                     @endforeach
                 </x-adminlte-datatable>
             </div>
-        </div>
+        </div>  
     </div>
 @stop
 
 
 
 @section('css')
-    {{-- Add here extra stylesheets --}}
+
     <link rel="stylesheet" href="/css/miestilo.css">
+
 @stop
 
 @section('js')
+
+
+    <script>
+        new DataTable('#table1', {
+            responsive: true
+        });
+    </script>
+
+
+
+
     <script>
         $(document).ready(function() {
             $('.formEliminar').submit(function(e) {
