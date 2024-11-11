@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\Bitacora;
+use App\Http\Controllers\Controller;
 
 class AdminDashboardController extends Controller
 {
@@ -12,8 +13,10 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        // Obtén solo las bitácoras del usuario autenticado
-        return view('admin.dashboard');
+        $countStatus0 = Bitacora::where('status', 0)->whereNull('deleted_at')->count();
+        $countStatus1 = Bitacora::where('status', 1)->whereNull('deleted_at')->count();
+        
+        return view('admin.dashboard', compact('countStatus0', 'countStatus1'));
     }
 
     /**

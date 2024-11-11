@@ -630,9 +630,6 @@ return [
                     'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
 
-
-
-
                 [
                     'type' => 'css',
                     'asset' => false,
@@ -640,87 +637,11 @@ return [
                 ],
 
 
-                # Datatable responsive 
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/responsive/3.0.3/js/responsive.bootstrap4.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdn.datatables.net/responsive/3.0.3/css/responsive.bootstrap4.css',
-                ],
-
-
-
-
-
-
                 [
                     'type' => 'css',
                     'asset' => false,
                     'location' => 'css/miestilo.css',
                 ],
-
-                #Mi Estilo Datatable
-                // [
-                //     'type' => 'css',
-                //     'asset' => false,
-                //     'location' => 'css/bootstrap.min.css',
-                // ],
-                // [
-                //     'type' => 'css',
-                //     'asset' => false,
-                //     'location' => 'css/dataTables.bootstrap5.css',
-                // ],
-                // [
-                //     'type' => 'css',
-                //     'asset' => false,
-                //     'location' => 'css/responsive.bootstrap5.css',
-                // ],
-
-
-
-                #Mi Estilo Datatable 
-                // [
-                //     'type' => 'js',
-                //     'asset' => false,
-                //     'location' => 'js/bootstrap.bundle.min.js',
-                // ],
-                // [
-                //     'type' => 'js',
-                //     'asset' => false,
-                //     'location' => 'js/dataTables.bootstrap5.js',
-                // ],
-                // [
-                //     'type' => 'js',
-                //     'asset' => false,
-                //     'location' => 'js/dataTables.js',
-                // ],
-                // [
-                //     'type' => 'js',
-                //     'asset' => false,
-                //     'location' => 'js/dataTables.responsive.js',
-                // ],
-                // [
-                //     'type' => 'js',
-                //     'asset' => false,
-                //     'location' => 'js/jquery-3.7.1.js',
-                // ],
-                // [
-                //     'type' => 'js',
-                //     'asset' => false,
-                //     'location' => 'js/responsive.bootstrap5.js',
-                // ],
-
-
-
 
             ],
         ],

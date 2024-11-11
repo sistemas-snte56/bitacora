@@ -18,24 +18,23 @@
                 <strong>LISTA GENERAL</strong>
             </div>
             <div class="card-text">
-            {{-- Setup data for datatables --}}
+                
                 @php
                     $heads = [
-                        'FECHA',
-                        'HORA DE SALIDA',
-                        'PERSONAL',
+                        ['label' => 'FECHA', 'width' => 6],
+                        'STATUS',
+                        'HORA',
+                        'NOMBRE',
                         'DEPENDENCIA',
                         'MOTIVO',
                         'OBSERVACIÓN',
-                        'STATUS',
                         ['label' => 'ACCIONES', 'no-export' => true, 'width' => 12],
                     ];
 
                     $config = [
                         'order' => [
                             [0, 'asc'], // Ordenar por FECHA (columna 0)
-                            [1, 'asc'], // Ordenar por HORA DE SALIDA (columna 1)
-                            [6, 'asc'], // Ordenar por STATUS (columna 6)                            
+                            [1, 'asc'], // Ordenar por STATUS (columna 1)                            
                         ],
                         'columns' => [
                             ['orderable' => true], 
@@ -44,7 +43,7 @@
                             ['orderable' => false], 
                             ['orderable' => false], 
                             ['orderable' => false], 
-                            ['orderable' => true],
+                            ['orderable' => false],
                             ['orderable' => false],
                         ],
                         'language' => [
@@ -54,17 +53,22 @@
                         'lengthMenu' => [50, 100, 200], // Opciones de entradas por página                        
                     ];
                 @endphp
-                {{-- Minimal example / fill data using the component slot --}}
-                <x-adminlte-datatable id="table1" :heads="$heads"  :config="$config"  striped hoverable bordered compressed with-buttons>
+                
+                <x-adminlte-datatable id="table1" :heads="$heads" :config="$config" striped hoverable bordered compressed with-buttons class="dt-responsive">
                     @foreach($bitacoras as $bitacora )
                         <tr>
                             <td>{{$bitacora->fecha_salida }}</td>
+                            <td id="resp{{$bitacora->id}}">
+                                @if ($bitacora->status == 1)
+                                    <h5><span class="badge badge-success">Concluido</span></h5>
+                                @else
+                                    <h5><span class="badge badge-danger">Sin concluir</span></h5>
+                                @endif
+                            </td>                            
                             <td>{{$bitacora->hora}}</td>
                             <td>{{$bitacora->user->name}}</td>
                             <td>{{$bitacora->dependencia->dependencia}}</td>
                             <td id="motivo{{$bitacora->id}}">
-                                
-                                
                                 @if ($bitacora->status == 1)
                                     <p id="status_motivo_{{$bitacora->id}}">
                                         <del>{{$bitacora->motivo}}</del>
@@ -74,17 +78,8 @@
                                         {{$bitacora->motivo}}
                                     </p>
                                 @endif
-
-
                             </td>
                             <td>{{$bitacora->observacion}}</td>
-                            <td id="resp{{$bitacora->id}}">
-                                @if ($bitacora->status == 1)
-                                    <h5><span class="badge badge-success">Concluido</span></h5>
-                                @else
-                                    <h5><span class="badge badge-danger">Sin concluir</span></h5>
-                                @endif
-                            </td>
                             <td>
                                 <input type="button" id="status{{$bitacora->id}}" data-id="{{$bitacora->id}}" class="mi_boton btn btn-info btn-sm"
                                     value="{{$bitacora->status ? 'Finalizado' : 'Terminar'}}" 
