@@ -33,9 +33,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
     route::get('/',[BitacoraController::class,'dashboard'])->name('bitacora.dashboard');
     route::get('/bitacora/status',[BitacoraController::class, 'UpdateStatusSalida'])->name('bitacora.status');
